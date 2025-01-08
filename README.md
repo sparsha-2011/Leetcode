@@ -1,4 +1,4 @@
-# LeetCode Practice
+# Leetcode Practice 🚀
 
 This repository contains my solutions to LeetCode problems, organized by topic and difficulty. It's a space to track my progress, improve problem-solving skills, and prepare for coding interviews.
 
