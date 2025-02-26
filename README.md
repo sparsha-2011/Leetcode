@@ -9,9 +9,4 @@ This repository contains my solutions to LeetCode problems, organized by topic a
 ## Technologies
 - Language: Python 
 
-## Goals
-- Strengthen algorithmic thinking.
-- Master data structures and algorithms.
-- Prepare for technical interviews.
-
 
