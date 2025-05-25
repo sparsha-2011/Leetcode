@@ -21,7 +21,7 @@ class Solution:
         res = []  # Final result list to store combinations
         cur = []  # Temporary list to build current combination
 
-        def dfs(res: List[List[int]], cur: List[int], idx: int, total: int) -> None:
+        def dfs(idx: int, total: int) -> None:
             """
             Recursive DFS helper to find valid combinations.
 
@@ -42,8 +42,8 @@ class Solution:
                 # Explore all candidates starting from current index (allows reuse)
                 for i in range(idx, len(candidates)):
                     cur.append(candidates[i])                 # Choose candidate
-                    dfs(res, cur, i, total + candidates[i])   # Recurse with updated total
+                    dfs( i, total + candidates[i])   # Recurse with updated total
                     cur.pop()                                 # Backtrack
 
-        dfs(res, cur, 0, 0)
+        dfs(0, 0)
         return res
