@@ -19,7 +19,7 @@ class Solution:
         res = []  # Final result list to hold all subsets
         cur = []  # Temporary list to build current subset
 
-        def dfs(res: List[List[int]], cur: List[int], idx: int) -> None:
+        def dfs(idx: int) -> None:
             """
             Depth-first search to explore all combinations starting from index `idx`.
 
@@ -37,9 +37,9 @@ class Solution:
             # Iterate through the elements starting from `idx`
             for i in range(idx, len(nums)):
                 cur.append(nums[i])         # Include nums[i] in the current subset
-                dfs(res, cur, i + 1)        # Recurse to include further elements
+                dfs(i + 1)        # Recurse to include further elements
                 cur.pop()                   # Backtrack to explore other combinations
 
-        dfs(res, cur, 0)
+        dfs(0)
         return res
 
