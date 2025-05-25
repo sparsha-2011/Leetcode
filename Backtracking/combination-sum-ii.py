@@ -22,7 +22,7 @@ class Solution:
         cur = []  # Temporary list to store current combination
         candidates.sort()  # Sort to facilitate duplicate skipping
 
-        def dfs(res: List[List[int]], cur: List[int], idx: int, total: int) -> None:
+        def dfs(idx: int, total: int) -> None:
             """
             Recursive DFS helper function to build valid combinations.
 
@@ -45,9 +45,9 @@ class Solution:
                     if candidates[i] != prev:
                         # Avoid using the same number more than once at the same depth
                         cur.append(candidates[i])  # Choose current candidate
-                        dfs(res, cur, i + 1, total + candidates[i])  # Recurse without reusing current index
+                        dfs(i + 1, total + candidates[i])  # Recurse without reusing current index
                         cur.pop()  # Backtrack
                     prev = candidates[i]  # Update previous element tracker
 
-        dfs(res, cur, 0, 0)
+        dfs(0, 0)
         return res
