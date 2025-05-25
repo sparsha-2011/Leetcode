@@ -1,0 +1,45 @@
+# Date: 2025-04-15
+# Author: Sparsha Srinath
+# Leetcode (Subsets II): https://leetcode.com/problems/subsets-ii/
+# Tags: Backtracking, DFS, Recursion, Sorting
+
+from typing import List
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        """
+        Generates all possible subsets (the power set) of a list of integers,
+        ensuring that there are no duplicate subsets.
+
+        Args:
+            nums (List[int]): The list of integers which may contain duplicates.
+
+        Returns:
+            List[List[int]]: A list of all unique subsets.
+        """
+
+        res = []        # Final result to store subsets
+        cur = []        # Temporary list to build each subset
+        nums.sort()     # Sort to handle duplicates
+
+        def dfs(res: List[List[int]], cur: List[int], idx: int):
+            """
+            Depth-first search to generate subsets from index `idx`.
+
+            Args:
+                res: Main result list.
+                cur: Current subset being built.
+                idx: Current index in nums being considered.
+            """
+            res.append(cur.copy())  # Add the current subset to the result
+
+            prev = None  # To track previous number and avoid duplicates
+            for i in range(idx, len(nums)):
+                if nums[i] != prev:  # Skip duplicates at the same depth
+                    cur.append(nums[i])          # Include nums[i] in the current subset
+                    dfs(res, cur, i + 1)         # Recurse for the next elements
+                    cur.pop()                    # Backtrack
+                prev = nums[i]                   # Update previous
+
+        dfs(res, cur, 0)
+        return res
