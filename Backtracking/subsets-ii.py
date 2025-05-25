@@ -22,7 +22,7 @@ class Solution:
         cur = []        # Temporary list to build each subset
         nums.sort()     # Sort to handle duplicates
 
-        def dfs(res: List[List[int]], cur: List[int], idx: int):
+        def dfs(idx: int):
             """
             Depth-first search to generate subsets from index `idx`.
 
@@ -37,9 +37,9 @@ class Solution:
             for i in range(idx, len(nums)):
                 if nums[i] != prev:  # Skip duplicates at the same depth
                     cur.append(nums[i])          # Include nums[i] in the current subset
-                    dfs(res, cur, i + 1)         # Recurse for the next elements
+                    dfs(i + 1)         # Recurse for the next elements
                     cur.pop()                    # Backtrack
                 prev = nums[i]                   # Update previous
 
-        dfs(res, cur, 0)
+        dfs(0)
         return res
