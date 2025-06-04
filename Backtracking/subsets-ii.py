@@ -43,3 +43,25 @@ class Solution:
 
         dfs(0)
         return res
+
+
+
+#Approach 2
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        cur = []
+        nums.sort()
+
+        def dfs(idx):
+            res.append(cur.copy())
+
+            for i in range(idx,len(nums)):
+                if i > idx and nums[i] == nums[i - 1]:
+                    continue
+                cur.append(nums[i])         # Include nums[i] in the current subset
+                dfs(i + 1)        # Recurse to include further elements
+                cur.pop()                   # Backtrack to explore other combinations
+
+        dfs(0)
+        return res
