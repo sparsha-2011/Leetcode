@@ -59,3 +59,54 @@ class Solution:
 
         dfs('', 0, 0)
         return res
+
+
+##Approach 2
+
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        """
+        Given a string containing only digits, return all possible valid IP address combinations 
+        that can be formed by inserting three dots into the string.
+
+        Args:
+            s (str): The input string containing digits.
+
+        Returns:
+            List[str]: A list of valid IP address combinations.
+        """
+
+        res = []       # Stores all valid IP combinations
+        cur = []       # Temporary list to build segments
+
+        def dfs(idx: int, parts: int) -> None:
+            """
+            Performs depth-first search to generate all valid IP address combinations.
+
+            Args:
+                idx (int): Current index in the input string.
+                parts (int): Number of parts (segments) formed so far.
+            """
+            if idx == len(s) and parts == 4:
+                res.append('.'.join(cur))
+                return
+            if parts >= 4:
+                return
+            
+            # Try segments of length 1 to 3
+            for i in range(1, 4):
+                if idx + i > len(s):
+                    break
+
+                segment = s[idx:idx+i]
+
+                # Skip if segment is not valid (e.g., "00", "256", etc.)
+                if (segment[0] == '0' and len(segment) > 1) or int(segment) > 255:
+                    continue
+
+                cur.append(segment)
+                dfs(idx + i, parts + 1)
+                cur.pop()  # Backtrack
+
+        dfs(0, 0)
+        return res
