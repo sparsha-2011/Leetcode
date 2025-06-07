@@ -20,7 +20,7 @@ class Solution:
         slow = head
         fast = head
         
-        # In an even length linked list with two middle nodes, to print the second middle
+        # In an even length linked list with two middle nodes, to print the first middle
         # we just have to add 'and fast.next.next' to the while condition.
         while fast and fast.next:
             slow = slow.next
