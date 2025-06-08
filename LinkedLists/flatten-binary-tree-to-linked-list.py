@@ -1,5 +1,13 @@
-# LeetCode Problem: Flatten Binary Tree to Linked List
+# Leetcode Problem: Flatten Binary Tree to Linked List
 # Link: https://leetcode.com/problems/flatten-binary-tree-to-linked-list/
+# Author: Sparsha Srinath
+# Date: 2025-06-08
+# Tags: Binary Tree, DFS, Recursion, Iteration, Morris Traversal
+# Problem Statement:
+#    Given the root of a binary tree, flatten the tree into a "linked list":
+#    - The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list
+#    - The left child pointer should always be None
+#    - The "linked list" should be in the same order as a preorder traversal of the binary tree
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -8,44 +16,72 @@
 #         self.left = left
 #         self.right = right
 
+
+# Approach 1: Recursive DFS
+# Time Complexity: O(n)
+# Space Complexity: O(n) for recursion stack
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-        """
-        Flatten a binary tree to a linked list in-place using preorder traversal.
-        
-        The tree is modified such that the left child of every node is None 
-        and the right child points to the next node in the preorder traversal.
-        
-        :param root: The root node of the binary tree.
-        :return: None (The tree is modified in place).
-        
-        Time Complexity: O(n) where n is the number of nodes in the tree.
-        Space Complexity: O(n) for the stack used in the iterative traversal.
-        """
-        # Edge case: If the root is None, there's nothing to flatten
+        def dfs(node: Optional[TreeNode]) -> Optional[TreeNode]:
+            if not node:
+                return None
+            if not node.left and not node.right:
+                return node
+            
+            leftTail = dfs(node.left)
+            rightTail = dfs(node.right)
+
+            if leftTail:
+                leftTail.right = node.right
+                node.right = node.left
+                node.left = None
+
+            return rightTail or leftTail
+
+        dfs(root)
+
+
+# Approach 2: Iterative using Stack
+# Time Complexity: O(n)
+# Space Complexity: O(n) for the explicit stack
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
         if not root:
-            return []
+            return
 
-        # Initialize the current node pointer and the stack to hold nodes
-        cur = root
         stack = [root]
+        prev = None
 
-        # Iterate while there are nodes left to process
         while stack:
-            node = stack.pop()  # Pop the current node from the stack
+            curr = stack.pop()
+            if prev:
+                prev.right = curr
+                prev.left = None
 
-            # Skip the first iteration since root doesn't need modification
-            if node != root:
-                cur.right = node  # Attach the node to the current node's right
-                cur.left = None   # Set the left child to None (flatten the tree)
+            if curr.right:
+                stack.append(curr.right)
+            if curr.left:
+                stack.append(curr.left)
+            prev = curr
 
-            cur = node  # Move the current pointer to the node
 
-            # Push right and left children to the stack (if they exist) for processing
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
+# Approach 3: Morris Traversal (Threaded Binary Tree)
+# Time Complexity: O(n)
+# Space Complexity: O(1) – no recursion or explicit stack
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        curr = root
 
-        # Return the modified root (it's flattened in place)
-        return root
+        while curr:
+            if curr.left:
+                # Find the rightmost node in the left subtree
+                prev = curr.left
+                while prev.right:
+                    prev = prev.right
+                # Threading: connect rightmost node to current's right subtree
+                prev.right = curr.right
+                # Move left subtree to right
+                curr.right = curr.left
+                curr.left = None
+            # Move to next right node
+            curr = curr.right
