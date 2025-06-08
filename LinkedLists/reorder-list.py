@@ -1,37 +1,57 @@
+# Author: Sparsha Srinath
+# Date: 2025-06-08
+# URL: https://leetcode.com/problems/reorder-list/
+# Tags: Linked List, Two Pointers, In-place Reversal, Merge
+
 from typing import Optional
 
-# LeetCode Problem: https://leetcode.com/problems/middle-of-the-linked-list/
-
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 
 class Solution:
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         """
-        Finds the middle node of a given singly linked list.
-        If there are two middle nodes (even-length list), returns the second middle node.
-        
-        :param head: Head of the singly linked list
-        :return: The middle node of the linked list
+        Reorders a linked list so that it follows the pattern:
+        L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...
+
+        Modifies the list in-place and returns None.
+
+        Args:
+            head (Optional[ListNode]): The head of the linked list.
         """
+
+        if not head or not head.next:
+            return
+
+        # Step 1: Find middle of the linked list using slow and fast pointers
         slow = head
         fast = head
-        
-        # In an even length linked list with two middle nodes, to print the second middle
-        # we just have to add 'and fast.next.next' to the while condition.
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
-        return slow
 
-# Example usage
-if __name__ == "__main__":
-    # Creating a linked list: 1 -> 2 -> 3 -> 4 -> 5
-    head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
-    solution = Solution()
-    middle = solution.middleNode(head)
-    print(middle.val)  # Output: 3
+        # Step 2: Reverse the second half of the list
+        second_half = slow.next
+        slow.next = None
+        prev = None
+        while second_half:
+            next_node = second_half.next
+            second_half.next = prev
+            prev = second_half
+            second_half = next_node
+
+        # Step 3: Merge the first half and the reversed second half
+        first = head
+        second = prev
+        while second:
+            f_next = first.next
+            s_next = second.next
+
+            first.next = second
+            second.next = f_next
+
+            first = f_next
+            second = s_next
