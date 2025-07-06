@@ -5,8 +5,8 @@ This file demonstrates how to implement both Min Heap and Max Heap in Python usi
 heapq is a binary heap implementation with O(log n) push and pop operations.
 By default, heapq implements a Min Heap.
 
-Author: Your Name
-Date: YYYY-MM-DD
+Author: Sparsha Srinath
+Date: 2025-07-06
 """
 
 import heapq
