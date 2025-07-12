@@ -1,44 +1,52 @@
-# Author: Sparsha Srinath  
-# Date: 2025-07-11  
-# LeetCode URL: https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/  
-# Tags: sliding-window, hashset, prefix-sum, arrays, optimization  
-#
+# Author: Sparsha Srinath
+# Date: 2025-06-29
+# Leetcode: https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/
+# Tags: Sliding Window, HashSet
+# Time Complexity: O(n)
+# Space Complexity: O(k)
 # Description:
-#   Given an integer array `nums` and an integer `k`, return the maximum sum of a subarray
-#   of length `k` with all distinct elements. If no such subarray exists, return 0.
-#
-# Approach:
-#   - Use the sliding window technique with a hash set to ensure all elements are distinct
-#   - Maintain a running sum (`cur_sum`) and update it as the window shifts
-#   - If a duplicate is encountered, shrink the window from the left
-#   - If window size reaches `k`, check and update `max_sum`
-#   - Then shrink the window to continue sliding
+#   Find the maximum sum of any subarray of length `k` in which all elements are distinct.
 
 from typing import List
 
 class Solution:
     def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        """
+        Computes the maximum sum of a subarray with length k where all elements are distinct.
+
+        Args:
+            nums (List[int]): The input list of integers.
+            k (int): The length of subarray to check for distinct elements.
+
+        Returns:
+            int: The maximum sum of any valid subarray of length k.
+        """
         start = 0
         max_sum = 0
         cur_sum = 0
         elements = set()
 
         for end in range(len(nums)):
-            # Shrink window if duplicate found
-            while nums[end] in elements:
-                cur_sum -= nums[start]
-                elements.remove(nums[start])
-                start += 1
+            if nums[end] not in elements:
+                cur_sum += nums[end]
+                elements.add(nums[end])
 
-            # Add current number
-            cur_sum += nums[end]
-            elements.add(nums[end])
+                # When window size hits k
+                if end - start + 1 == k:
+                    if len(elements) == k:
+                        max_sum = max(max_sum, cur_sum)
 
-            # If window size is k, check for max and slide window
-            if end - start + 1 == k:
-                max_sum = max(max_sum, cur_sum)
-                cur_sum -= nums[start]
-                elements.remove(nums[start])
-                start += 1
+                    # Slide the window
+                    cur_sum -= nums[start]
+                    elements.remove(nums[start])
+                    start += 1
+
+            else:
+                # Remove from left until duplicate is removed
+                while nums[start] != nums[end]:
+                    cur_sum -= nums[start]
+                    elements.remove(nums[start])
+                    start += 1
+                start += 1  # skip the duplicate itself
 
         return max_sum
