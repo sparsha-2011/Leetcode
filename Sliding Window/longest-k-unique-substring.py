@@ -22,22 +22,30 @@ class Solution:
         Returns:
             int: Length of the longest valid substring, or -1 if none exists.
         """
+      
+
+
         start = 0
         unique = defaultdict(int)
         maxLen = 0
-
+        
         for end in range(len(s)):
-            unique[s[end]] += 1
-
-            # Shrink the window if we have more than k unique characters
-            while len(unique) > k:
-                unique[s[start]] -= 1
-                if unique[s[start]] == 0:
-                    del unique[s[start]]
-                start += 1
-
-            # Check for exactly k unique characters
+            
+            unique[s[end]]+=1
+                
             if len(unique) == k:
-                maxLen = max(maxLen, end - start + 1)
-
-        return maxLen if maxLen > 0 else -1
+               
+                maxLen = max(maxLen,end-start+1)
+            elif len(unique) > k:
+                while len(unique) != k:
+                    
+                  
+                        unique[s[start]]-=1
+                        if  unique[s[start]]==0:
+                            del  unique[s[start]]
+                        start+=1
+                        
+                        
+                    
+               
+        return maxLen if maxLen else -1
