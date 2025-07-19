@@ -2,13 +2,12 @@
 # Date: 2025-06-29
 # Problem: Reorganize String
 # Link: https://leetcode.com/problems/reorganize-string/
-# Tags: Heap, Greedy, String, HashMap
-# Time Complexity: O(n log k) where n is the length of the string and k is the number of unique characters
-# Space Complexity: O(n + k) for the heap, queue, and result
+# Tags: Heap, Greedy, Priority Queue, String, HashMap
+# Time Complexity: O(n log k), where n is the length of the input string and k is the number of unique characters
+# Space Complexity: O(k) for the heap and frequency dictionary
 
-from collections import defaultdict, deque
+from collections import defaultdict
 import heapq
-from typing import List
 
 class Solution:
     def reorganizeString(self, s: str) -> str:
@@ -17,34 +16,32 @@ class Solution:
         for c in s:
             freq[c] += 1
 
-        # Step 2: Create a max heap based on frequency (-ve for max-heap behavior)
+        # Step 2: Build a max heap using negative counts
+        # (Python heapq is a min-heap by default, so we negate the counts)
         maxHeap = [(-cnt, c) for c, cnt in freq.items()]
         heapq.heapify(maxHeap)
 
-        # Queue to track characters that are in "cooldown" (waiting to be reused)
-        q = deque()  # Stores tuples: (count, char, time to reinsert)
-        res = []
-        i = 0  # Simulates time steps
+        prev = None  # To keep track of the previously used character
+        res = ""     # Final result string
 
-        while maxHeap or q:
-            # Step 3: Reinsert character from cooldown if its wait time is over
-            if q and q[0][2] <= i:
-                cnt, c, _ = q.popleft()
-                heapq.heappush(maxHeap, (cnt, c))
-
-            # Step 4: Use the character with the highest remaining frequency
-            if maxHeap:
-                cnt, c = heapq.heappop(maxHeap)
-                res.append(c)
-                cnt += 1  # Decrease count (remember cnt is negative)
-
-                # If there's still some of that character left, add it to cooldown
-                if cnt:
-                    q.append((cnt, c, i + 2))  # Wait for 1 char gap
-            else:
-                # If heap is empty but queue still has items, we cannot proceed
+        while maxHeap or prev:
+            # If there's a leftover character but nothing to pair with → invalid
+            if prev and not maxHeap:
                 return ""
 
-            i += 1  # Move forward in time
+            # Step 3: Pop most frequent character
+            cnt, char = heapq.heappop(maxHeap)
+            res += char
+            cnt += 1  # Decrease count (closer to 0, since cnt is negative)
 
-        return ''.join(res)
+            # Step 4: Push the previously used character back into heap if it still has occurrences left
+            if prev:
+                heapq.heappush(maxHeap, prev)
+
+            # Step 5: If current character still has more occurrences, store it as prev for next round
+            if cnt != 0:
+                prev = (cnt, char)
+            else:
+                prev = None
+
+        return res
