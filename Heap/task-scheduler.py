@@ -52,9 +52,3 @@ class Solution:
         return time
 
 
-# -----------------------------
-# Optional test case to run
-# -----------------------------
-if __name__ == "__main__":
-    sol = Solution()
-    print(sol.leastInterval(["A", "A", "A", "B", "B", "B"], 2))  # Output: 8
