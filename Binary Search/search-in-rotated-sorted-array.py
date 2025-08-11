@@ -50,8 +50,6 @@ class Solution:
         left = binary_search(0, res - 1)
         right = binary_search(res, N - 1)
         
-        # Debug print - remove or comment out for production
-        print(res, left, right)
 
         if left == right == -1:
             return -1
