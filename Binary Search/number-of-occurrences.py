@@ -1,5 +1,5 @@
 
-# Author: Your Name
+# Author: Sparsha Srinath
 # Date: 2025-08-10
 # Problem: Frequency of an Element in a Sorted Array
 # Link: https://practice.geeksforgeeks.org/problems/number-of-occurrence2259/1
