@@ -15,7 +15,7 @@ class Solution:
         N = len(nums)
         start = 0
         end  = N - 1
-        res = N
+    
         while start <= end:
             mid = (start + end) // 2
             if target == nums[mid]:
@@ -23,6 +23,6 @@ class Solution:
             if target > nums[mid]:
                 start = mid + 1
             elif target < nums[mid]:
-                res = mid
+              
                 end = mid - 1
-        return res
+        return start
