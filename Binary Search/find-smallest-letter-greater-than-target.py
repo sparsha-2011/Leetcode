@@ -26,4 +26,3 @@ class Solution:
         return letters[start % N]
 
 
-Do you want me to keep **Author** as “Your Name” or put your actual name for your GitHub?
