@@ -15,17 +15,17 @@ class Solution:
         res = -1
         end = max(piles)
 
-        def isValid(arr, h, mid):
+        def isValid(mid):
             if not mid:
                 return False
             time = 0
-            for i in arr:
+            for i in piles:
                 time += (i + mid - 1) // mid
             return time <= h
 
         while start <= end:
             mid = (start + end) // 2
-            if isValid(piles, h, mid):
+            if isValid( mid):
                 res = mid
                 end = mid - 1
             else:
