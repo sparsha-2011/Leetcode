@@ -2,31 +2,37 @@
 # Date: 2025-08-16
 # Problem: 0/1 Knapsack
 # Link: https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
-# Tags: Dynamic Programming, Knapsack, DP-Table, Optimization
-# Time Complexity: O(N * W)  # N = number of items, W = capacity of knapsack
-# Space Complexity: O(N * W) (can be optimized to O(W))
-
-from typing import List
+# Tags: Dynamic Programming, Knapsack, Optimization
+# Time Complexity: O(n * W)  # n = number of items, W = capacity
+# Space Complexity: O(n * W)  # using a 2D DP table
 
 class Solution:
-    def knapSack(self, W: int, wt: List[int], val: List[int], n: int) -> int:
+    def knapsack(self, W, val, wt):
         """
-        Function to return the maximum value that can be put in a knapsack of capacity W.
-        Uses bottom-up DP (tabulation).
+        Solves the 0/1 Knapsack problem using bottom-up DP.
+
+        Parameters:
+            W (int): Maximum weight capacity of the knapsack
+            val (List[int]): Values of items
+            wt (List[int]): Weights of items
+
+        Returns:
+            int: Maximum value that can be obtained
         """
-        # DP table initialization
+        n = len(val)
+
+        # Initialize DP table (n+1) x (W+1)
         dp = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
 
-        # Build table dp[][] in bottom-up manner
+        # Build the DP table
         for i in range(1, n + 1):
-            for w in range(1, W + 1):
-                if wt[i - 1] <= w:
-                    dp[i][w] = max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w])
+            for j in range(1, W + 1):
+                if wt[i - 1] <= j:
+                    # Either include the item or exclude it
+                    dp[i][j] = max(val[i - 1] + dp[i - 1][j - wt[i - 1]], 
+                                   dp[i - 1][j])
                 else:
-                    dp[i][w] = dp[i - 1][w]
+                    # Exclude the item
+                    dp[i][j] = dp[i - 1][j]
 
         return dp[n][W]
-
-
-
-    print("Maximum value in Knapsack =", obj.knapSack(W, wt, val, n))
