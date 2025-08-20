@@ -25,4 +25,8 @@ class Solution:
         # At this point, target is not in nums.
         # Possible candidates are nums[end] and nums[start] (if they exist).
         cand1 = nums[end] if end >= 0 else float('inf')
-        cand2 = nums[start] if start < N else float('inf
+        cand2 = nums[start] if start < N else float('inf')
+        
+        if abs(target-cand1)>abs(target-cand2):
+            return cand1
+        return cand2
