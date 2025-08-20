@@ -1,7 +1,7 @@
 # Author: Sparsha Srinath
 # Date: 2025-08-17
 # Problem: Floor of an Element in a Sorted Array
-# Link: https://practice.geeksforgeeks.org/problems/ceil-the-floor2802/1
+# Link: https://www.geeksforgeeks.org/problems/floor-in-a-sorted-array-1587115620/1
 # Tags: Binary Search, Array
 # Time Complexity: O(log N)
 # Space Complexity: O(1)
