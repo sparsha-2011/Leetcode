@@ -1,4 +1,3 @@
-```python
 # Author: Sparsha Srinath
 # Date: 2025-08-19
 # Problem: Count Partitions With Given Difference
@@ -41,4 +40,4 @@ class Solution:
 
         # Final answer: number of ways to reach target sum
         return dp[n][target]
-```
+
