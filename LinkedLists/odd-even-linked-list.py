@@ -43,8 +43,7 @@ class Solution:
 #         self.next = next
 class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-    
-       
+     
         cur = head
         start = head
         odd_list = ListNode()
@@ -53,23 +52,15 @@ class Solution:
         even_list_start = even_list
         n = 0
 
-
         while cur:
             n+=1
             cur = cur.next
-        
-        
-
 
         for i in range(n):
             if i%2==0:
                 
                 odd_list.next = start
                 odd_list=odd_list.next
-          
-    
-                
-
  
             else:
                 even_list.next = start
@@ -80,8 +71,6 @@ class Solution:
         
         even_list.next = None
         odd_list.next = even_list_start.next
-
-        
 
         return result.next
             
