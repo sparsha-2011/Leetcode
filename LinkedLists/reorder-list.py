@@ -55,3 +55,57 @@ class Solution:
 
             first = f_next
             second = s_next
+
+
+#Solution 2
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        dum = ListNode()
+        slow = head
+        fast = head
+        prev = None
+
+        while fast.next and fast.next.next :
+            slow = slow.next
+            fast= fast.next.next
+
+        second_half = slow.next
+        slow.next = None
+        
+        while second_half:
+            next_node = second_half.next
+            second_half.next = prev
+            prev = second_half
+            second_half = next_node
+        
+        first = head
+        second = prev
+
+        i = 0
+        while first:
+            if i%2==0:
+                dum.next = first
+                first=first.next
+            else:
+                dum.next = second
+                second=second.next
+            i+=1
+            dum = dum.next
+
+      
+        if second:
+            dum.next = second
+
+
+
+
+
+      
