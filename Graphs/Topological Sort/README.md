@@ -98,7 +98,23 @@ order.reverse()
 ## 5️⃣ Problems That Use Topological Sort
 
 Below are the problems from your list that naturally fall under Topological Sort.
+---
+🟨 find-the-town-judge.py
 
+Problem summary:
+Given n people labeled from 1 to n and a list of trust relationships [a, b] (person a trusts person b), find the town judge — the person who is trusted by everyone else but trusts nobody. Return the judge’s label or -1 if no judge exists.
+
+Topological Sort tells from the statement:
+
+“Person a trusts person b” → directed edge a → b
+
+“Judge trusts nobody” → out-degree = 0
+
+“Judge is trusted by everyone” → in-degree = n-1
+
+You can think of this as a dependency graph, where arrows point toward the judge
+
+Topological sort intuition: the judge is a sink node (node with zero outgoing edges) in the directed graph
 ---
 
 ### 🟨 `course-schedule.py`
