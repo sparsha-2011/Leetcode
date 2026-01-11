@@ -1,9 +1,9 @@
 
----
+
 
 # Depth First Search (DFS)
 
----
+
 
 ## 1️⃣ What is DFS? What does it do?
 
