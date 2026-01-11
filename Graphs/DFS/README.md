@@ -108,6 +108,20 @@ These phrases clearly indicate **connected component counting**, which is a text
 
 ---
 
+🟩 **clone-graph.py**
+
+**Problem summary:**
+Given a node in a connected graph, return a **deep copy of the entire graph**, preserving all node values and neighbor relationships. The graph may contain cycles.
+
+**DFS tells from the statement:**
+
+* “Return a deep copy” → must visit every node exactly once
+* “Graph nodes have neighbor lists” → adjacency structure indicates traversal needed
+* “Graph may contain cycles” → requires a visited map to prevent infinite recursion
+* DFS is ideal for **traversing all nodes recursively while maintaining the cloned structure**
+
+---
+
 ### 🟩 `max-area-of-island.py`
 
 **Problem summary:**
