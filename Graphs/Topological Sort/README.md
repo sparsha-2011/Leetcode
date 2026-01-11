@@ -99,7 +99,7 @@ order.reverse()
 
 Below are the problems from your list that naturally fall under Topological Sort.
 ---
-🟨 find-the-town-judge.py
+### 🟨 find-the-town-judge.py
 
 Problem summary:
 Given n people labeled from 1 to n and a list of trust relationships [a, b] (person a trusts person b), find the town judge — the person who is trusted by everyone else but trusts nobody. Return the judge’s label or -1 if no judge exists.
