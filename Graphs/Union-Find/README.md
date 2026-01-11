@@ -134,19 +134,6 @@ Count the number of connected components in an undirected graph.
 
 ---
 
-### 🟧 `find-the-town-judge.py`
-
-**Problem summary:**
-In a trust graph, identify the town judge (trusted by everyone, trusts no one).
-
-**Union-Find tells from the statement:**
-
-* Can use **connected component logic** to group people
-* Each trust relation = potential union
-* While not classic Union-Find, connected components reasoning applies
-
----
-
 ## 6️⃣ Union-Find vs DFS/BFS
 
 | Union-Find                              | DFS/BFS                             |
