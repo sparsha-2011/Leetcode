@@ -124,12 +124,12 @@ def backtrack(start, path, total):
 
 ## Things to Always Watch Out For
 
-### 1️⃣ Start Index
+### 1. Start Index
 
 * `start` prevents reusing earlier elements
 * Controls **combination vs permutation**
 
-### 2️⃣ Duplicate Handling
+### 2. Duplicate Handling
 
 * Sort input first
 * Skip duplicates using:
@@ -138,12 +138,24 @@ def backtrack(start, path, total):
   if i > start and nums[i] == nums[i - 1]:
       continue
   ```
+### 3. Unlimited Use vs No Reuse
 
-### 3️⃣ Copy the Path
+* Unlimited use
+
+  ```python
+  baktrack(i,path)
+  ```
+  * No Reuse
+
+  ```python
+  baktrack(i+1,path)
+  ```
+
+### 4. Copy the Path
 
 * Always append `path[:]`, **not `path`**
 
-### 4️⃣ Pruning
+### 5. Pruning
 
 * Stop recursion early when:
 
