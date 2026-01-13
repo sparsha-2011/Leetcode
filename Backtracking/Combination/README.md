@@ -145,7 +145,8 @@ def backtrack(start, path, total):
   ```python
   baktrack(i,path)
   ```
-  * No Reuse
+  
+* No Reuse
 
   ```python
   baktrack(i+1,path)
