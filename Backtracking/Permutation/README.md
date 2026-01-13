@@ -2,7 +2,7 @@
 
 # 🟦 BACKTRACKING TEMPLATE 2: **Permutations / Ordering**
 
----
+
 
 ## What is this category?
 
@@ -16,7 +16,7 @@ Think:
 
 > “What comes next in the sequence?”
 
----
+
 
 ## What does this technique do?
 
@@ -27,7 +27,7 @@ Think:
   * Duplicate elements (unique permutations)
 * Ensures each element is used **exactly once per path**
 
----
+
 
 ## How to know a problem belongs here (Tells)
 
