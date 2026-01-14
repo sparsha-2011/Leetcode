@@ -100,6 +100,7 @@
 * `sudoku-solver.py`
 * `matchsticks-to-square.py`
 * `maximum-length-of-a-concatenated-string-with-unique-characters.py`
+* `word-search.py`
 
 ### Tells in the problem
 
@@ -140,7 +141,7 @@
 | **Combinations / Subsets**             | subsets, subsets-ii, combination-sum (I/II/III), closest-dessert-cost                    |
 | **Permutations**                       | permutations, permutations-ii, letter-tile-possibilities, number-of-squareful-arrays     |
 | **String Construction / Partitioning** | generate-parentheses, restore-ip-addresses, palindrome-partitioning, letter-combinations |
-| **Constraint Satisfaction**            | n-queens, sudoku-solver, matchsticks-to-square, max-length-unique-concat                 |
+| **Constraint Satisfaction**            | n-queens, sudoku-solver, matchsticks-to-square, max-length-unique-concat, word-search                 |
 | **Graph Path Enumeration**             | all-paths-from-source-to-target                                                          |
 
 ---
