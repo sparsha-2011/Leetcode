@@ -169,4 +169,3 @@ def backtrack(start, path):
 
 
 
-Say **“Constraint Satisfaction”** when ready 👍
