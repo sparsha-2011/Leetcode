@@ -189,7 +189,7 @@ This version is also very common in solutions.
 
 ---
 
-## 10️⃣ Problems to practice after this
+## Problems to practice after this
 
 ### Must-do
 
