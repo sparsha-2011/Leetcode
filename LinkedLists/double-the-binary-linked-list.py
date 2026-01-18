@@ -1,4 +1,10 @@
-# Problem link: https://leetcode.com/problems/double-the-binary-linked-list/
+# Author: Sparsha Srinath
+# Date: 2025-08-13
+# Problem: Double a Number Represented as a Linked List
+# Link: https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/
+# Tags: Linked List, Math
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -8,44 +14,32 @@
 
 class Solution:
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # Step 1: Reverse the linked list to make operations easier
-        cur = head
-        prev = None
-         
-        while cur:
-            next_n = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next_n
-
-        new_start = prev  # new_start is now the head of the reversed linked list
+        
+        def reverse(cur):
+            prev = None
+            while cur:
+                next_n = cur.next
+                cur.next = prev
+                prev = cur
+                cur = next_n
+            
+            return prev
+        
+        l1 = reverse(head)
         carry = 0
-        sum_l = 0
-        digit = 0
+        dummy = ListNode()
+        add = dummy
 
-        # Step 2: Traverse the reversed list and double each value
-        while prev:
-            sum_l = prev.val * 2 + carry
-            digit = sum_l % 10
-            prev.val = digit
-            carry = sum_l // 10  # Carry for the next node
-            prev = prev.next
+        while l1 or carry:
+            num = l1.val if l1 else 0
+            total = (2 * num) + carry
+            d = total % 10
+            carry = total // 10
 
-        # Step 3: If there's a carry left, create a new node
-        if carry != 0:
-            new_l = ListNode(carry)
-            last_node = new_start
-            # Traverse to the end of the list and append the carry node
-            while last_node.next:
-                last_node = last_node.next
-            last_node.next = new_l
+            add.next = ListNode(d)
+            add = add.next
 
-        # Step 4: Reverse the list back to restore the original order
-        prev_last = None
-        while new_start:
-            next_n = new_start.next
-            new_start.next = prev_last
-            prev_last = new_start
-            new_start = next_n
-
-        return prev_last  # Return the head of the final modified linked list
+            l1 = l1.next if l1 else None
+        
+        res = reverse(dummy.next)
+        return res
