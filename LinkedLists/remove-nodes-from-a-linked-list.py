@@ -1,47 +1,40 @@
-# LeetCode: https://leetcode.com/problems/remove-nodes-from-linked-list/
-# Problem: Given the head of a linked list, remove every node that has a node 
-# with a greater value anywhere to the right.
+# Author: Sparsha Srinath
+# Date: 2025-08-13
+# Problem: Remove Nodes From Linked List
+# Link: https://leetcode.com/problems/remove-nodes-from-linked-list/
+# Tags: Linked List, Stack, Monotonic Stack
+# Time Complexity: O(n)
+# Space Complexity: O(1) (excluding recursion / helper reversal)
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 
 class Solution:
-    def removeNodes(self, head: ListNode) -> ListNode:
-        """
-        Reverse the list, remove nodes with smaller values, then reverse back.
-
-        Time Complexity: O(n) - We traverse the list 3 times (reverse, process, reverse back)
-        Space Complexity: O(1) - In-place modification
-        """
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
         
-        # Step 1: Reverse the linked list
-        prev, cur = None, head
+        def reverse(cur):
+            prev = None
+            while cur:
+                next_n = cur.next
+                cur.next = prev
+                prev = cur
+                cur = next_n
+            return prev
+        
+        rev_head = reverse(head)
+        cur = rev_head
+        prev = None
+
         while cur:
-            next_n = cur.next
-            cur.next = prev
+            if prev and prev.val > cur.val:
+                prev.next = cur.next
+                cur = prev.next
+                continue
+
             prev = cur
-            cur = next_n
-        head = prev  # New head after reversal
-
-        # Step 2: Remove nodes with a greater value on the left (original right)
-        max_val = head.val
-        cur = head
-        while cur and cur.next:
-            if cur.next.val < max_val:
-                cur.next = cur.next.next  # Remove node
-            else:
-                cur = cur.next
-                max_val = cur.val  # Update max value
-
-        # Step 3: Reverse the list back to restore original order
-        prev, cur = None, head
-        while cur:
-            next_n = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next_n
-
-        return prev  # New head after final reversal
+            cur = cur.next
+        
+        return reverse(rev_head)
