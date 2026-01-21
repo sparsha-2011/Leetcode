@@ -43,12 +43,90 @@ for r in range(len(nums)):
 
 ---
 
+## 🧩 Deque-Based Fixed Window (Max / Min / First Valid)
+
+### When to Use a Deque
+
+Use a deque when the problem asks for:
+
+* maximum / minimum in every window
+* first negative / first positive in every window
+* monotonic behavior across the window
+
+### 🧠 Mental Model
+
+> "I maintain a deque that stores **useful candidates** for the current window while discarding irrelevant ones."
+
+### 🔥 Deque Template (Monotonic Queue)
+
+```python
+from collections import deque
+
+dq = deque()
+l = 0
+
+for r in range(len(nums)):
+    # Remove elements outside the window
+    while dq and dq[0] < l:
+        dq.popleft()
+
+    # Maintain monotonic decreasing order
+    while dq and nums[dq[-1]] <= nums[r]:
+        dq.pop()
+
+    dq.append(r)
+
+    if r - l + 1 == k:
+        answer.append(nums[dq[0]])
+        l += 1
+```
+
+### 🔥 First Negative Number Template
+
+```python
+from collections import deque
+
+dq = deque()  # stores indices of negative numbers
+l = 0
+
+for r in range(len(nums)):
+    if nums[r] < 0:
+        dq.append(r)
+
+    if r - l + 1 == k:
+        if dq and dq[0] >= l:
+            answer.append(nums[dq[0]])
+        else:
+            answer.append(0)
+        l += 1
+```
+
+```python
+l = 0
+window = 0
+
+for r in range(len(nums)):
+    window += nums[r]
+
+    if r - l + 1 == k:
+        update_answer(window)
+        window -= nums[l]
+        l += 1
+```
+
+---
+
 ## 🔥 Problems Using This Pattern
 
+### ➤ Sum / Count Based
+
 * max_sum_subarray_of_size_k
-* first-negative-integer-in-every-window-of-size-k
-* sliding-window-maximum
 * maximum-sum-of-distinct-subarrays-with-length-k
+
+### ➤ Deque / Monotonic Queue Based
+
+* sliding-window-maximum
+* first-negative-integer-in-every-window-of-size-k
 * sliding-subarray-beauty
 
 ---
