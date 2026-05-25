@@ -1,7 +1,7 @@
 ```python
 # Author: Sparsha Srinath
 # URL: https://leetcode.com/problems/task-scheduler-ii/
-# Date: 2025-06-15
+# Date: 2026-05-24
 # Tags: arrays, hash-map, simulation, greedy
 # Description:
 #   Given tasks that must be completed in order and a minimum space (cooldown)
