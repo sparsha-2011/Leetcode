@@ -1,5 +1,59 @@
 # Author: Sparsha Srinath
 # URL: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+# Date: 2026-05-25
+# Tags: graph, dfs, connected-components, adjacency-list
+# Description:
+#   Given n nodes and a list of undirected edges, find the number of connected
+#   components. Build an adjacency list (both directions for undirected), then
+#   DFS from each unvisited node. Each new DFS call from the main loop discovers
+#   a new component.
+#
+#   DFS Pattern 1 — Component Finding:
+#     for every node:
+#         if not visited → start DFS → that's one component
+#
+#   Key: adjacency list must add BOTH directions for undirected graphs.
+#   Without both, DFS misses connections and overcounts components.
+#
+# Input: n (int), edges (List[List[int]])
+# Output: int — number of connected components
+#
+# Example:
+#   Input : n=5, edges=[[0,1],[1,2],[3,4]]
+#   Output: 2 (components: {0,1,2} and {3,4})
+#
+# Time Complexity : O(V + E) where V = nodes, E = edges
+# Space Complexity: O(V + E) for adjacency list and visited set
+
+from collections import defaultdict
+from typing import List
+
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        adjL = defaultdict(list)
+        for u, v in edges:
+            adjL[u].append(v)
+            adjL[v].append(u)
+
+        components = 0
+        visit = set()
+
+        def dfs(node):
+            visit.add(node)
+            for nei in adjL[node]:
+                if nei not in visit:
+                    dfs(nei)
+
+        for i in range(n):
+            if i not in visit:
+                dfs(i)
+                components += 1
+
+        return components
+
+
+# Author: Sparsha Srinath
+# URL: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
 # Date: 2025-04-23
 # Tags: union-find, disjoint-set, graphs, connected-components
 
