@@ -1,3 +1,56 @@
+# Approach 3
+# Date: 06-25-2026
+# Author: Sparsha Srinath
+# Leetcode (Restore IP Addresses): https://leetcode.com/problems/restore-ip-addresses/
+# Tags: Backtracking, DFS, String Manipulation
+
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        
+        def isValid(part):
+            isDigit = part.isdigit()
+            if isDigit:
+                if part.startswith("0") and len(part) > 1:
+                    return False
+                num_part = int(part)
+                if num_part >= 0 and num_part <= 255:
+                    return True
+            return False
+
+        def backtrack(start, path):
+            if len(path) == 4 and start == len(s):
+                res.append(".".join(path))
+                return
+            if len(path) > 4:
+                return
+            for length in range(1, 4):
+                if start + length > len(s):
+                    break
+                segment = s[start:start + length]
+                if isValid(segment):
+                    path.append(segment)
+                    backtrack(start + length, path)
+                    path.pop()
+        
+        res = []
+        backtrack(0, [])
+        return res
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Date: 2025-04-15
 # Author: Sparsha Srinath
 # Leetcode (Restore IP Addresses): https://leetcode.com/problems/restore-ip-addresses/
