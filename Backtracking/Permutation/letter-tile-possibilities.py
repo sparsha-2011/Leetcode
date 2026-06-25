@@ -1,3 +1,34 @@
+#Latest
+# Author  : Sparsha Srinath
+# Date    : 06-24-2026
+# Problem : 1079. Letter Tile Possibilities
+# Link    : https://leetcode.com/problems/letter-tile-possibilities/
+
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        tiles = sorted(tiles)
+        
+        count = -1
+        def permute():
+            nonlocal count
+            count += 1
+                
+            for i in range(len(tiles)):
+                if used[i]:
+                    continue
+                if i > 0 and tiles[i] == tiles[i-1] and not used[i-1]:
+                    continue
+                
+                used[i] = True
+                permute()
+                used[i] = False
+        
+        n = len(tiles)
+        used = [False] * n
+        permute()
+        return count
+
+
 # Date: 2025-04-15
 # Author: Sparsha Srinath
 # Leetcode (Letter Tile Possibilities): https://leetcode.com/problems/letter-tile-possibilities/
